@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<header>
+
+    <div class="banner">
+    
+    <div style="display:flex;">
+    
+		    	<form class = "form_class" method = "POST" action = "/calculate">
+
+				<label for="length_of_price_history">Length of Price History (H)</label>
+				<input type="number" id="length_of_price_history" name="length_of_price_history" required>
+
+				<label for="num_of_data_points"># of Data Points/Shots (D)</label>
+				<input type="number" id="num_of_data_points" name="num_of_data_points" required />
+
+				<label for="profit_loss">Days after to check Profit/Loss (P)</label>
+				<input type="number" id="profit_loss" name="profit_loss" required />
+
+				<div class="buySell-div">
+				    <label for="buy_sell">Buy/Sell (T)</label>
+				<select name = "buy_sell" id = "buy_sell">
+				  <option value="buy">Buy</option>
+				  <option value="sell">Sell</option>
+				</select>
+				</div>
+				
+				<input class = "button_1" type="submit" value="Calculate" />
+			</form>
+			
+			<div style = "display: flex; flex-direction: column; align-items: center;">
+
+				<form class = "form_class_2" method = "POST" action = "/reset">
+					<input class = "button_1" type="submit" value="Reset" />
+				</form>
+				
+			    	<form class = "form_class_2" method="POST" action = "/audit">
+					<input class = "button_1" type="submit" value="Audit Logs" />
+				</form>
+			    	<form class = "form_class_2" method="POST" action = "/terminate">
+					<input class = "button_1" type="submit" value="Terminate" />
+				</form>
+			
+			</div>
+	
+    </div>
+
+
+	<div>
+	    <h1> Results </h1>
+	</div>
+
+	
+	<div>	
+		<div>
+			{{ form_data["msg"] }}
+		</div>
+		
+		<table class="styled-table">
+			<thead>
+				<tr>
+				    <th colspan = "2">Resources (R)</th>
+				    <th colspan = "2">Buy/Sell (T)</th>
+				    <th colspan = "2">Scalable Service (S)</th>
+				    <th colspan = "2">Shots (D)</th>
+				    <th colspan = "2">Length of Price History (H)</th>
+    				    <th colspan = "2">Days to check Profit/Loss (P)</th>
+		    		</tr>
+			</thead>
+			
+		    <tbody>
+			<tr>
+				<td>{{ form_data["resources"] }}<td>
+				<td>{{ form_data["transaction_type"] }}<td>
+				<td>{{ form_data["service"] }}<td>
+				<td>{{ form_data["shots"] }} <td>
+				<td> {{ form_data["minhistory"] }} <td>
+				<td> {{ form_data["profit_loss"] }} <td>
+			</tr>
+		    </tbody>
+		    
+			<thead>
+				<tr>
+				    <th colspan = "2">Warm up + Execution Time (seconds)</th>
+				    <th colspan = "2">Operation Cost</th>
+				    <th colspan = "2">Total Profit</th>
+				    <th colspan = "2">Total Loss</th>
+				    <th colspan = "2">Average Var95</th>
+    				    <th colspan = "2">Average Var99</th>
+		    		</tr>
+			</thead>
+			
+		    <tbody>
+			<tr>
+				<td>{{ form_data["total_time"] }}<td>
+				<td>{{ form_data["operation_cost"] }}<td>
+				<td>{{ form_data["total_profit"] }}<td>
+				<td>{{ form_data["total_loss"] }} <td>
+				<td> {{ form_data["var95_avg"] }} <td>
+				<td> {{ form_data["var99_avg"] }} <td>
+			</tr>
+		    </tbody>			
+		</table>
+	</div>
+        
+        <!-- Image Charts -->
+        <div>
+		<div style="display: flex; justify-content: space-between; margin:10px;">
+		  	<img src="data:image/png;base64,{{ form_data['img_data_1'] }}" alt="Chart for Risk Analysis">
+		</div>
+	</div>
+    </div>
+</header>
+
+<body>
+    <div>   
+        <table class="styled-table">
+        	<thead>
+			<tr>
+		            <th colspan = "2">Date</th>
+		            <th colspan = "2">Var 95</th>
+		            <th colspan = "2">Var 99</th>
+		            <th colspan = "2">Profit/Loss</th>
+		            <th colspan = "2">Profit/Loss Amount</th>
+	    		</tr>
+ 		</thead>
+            <tbody>
+    		{% for item in form_data['data_'] %}
+		<tr>
+			<td> {{ item[0] }} <td>
+			<td> {{ item[1] }} <td>
+			<td> {{ item[2] }} <td>
+			<td> {{ item[3] }} <td>
+			<td> {{ item[4] }} <td>
+		</tr>
+		{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+		

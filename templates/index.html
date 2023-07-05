@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Calculating Risks with Monte Carlo Simulation on Zoom Stocks using Cloud Services</title>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+
+<body>
+    <header>
+        <div class="header-title">
+            <h1>Calculating Risks with Monte Carlo Simulation on Zoom Stocks using Cloud Services</h1>
+            <h4> Shaikh Rezwan Rafid Ahmad </h4>
+            <br />
+        </div>
+    </header>
+    <br />
+    <div>
+    	<h3 style = "color:red;"> {{warmup_required_msg}} </h3>
+    </div>
+    <form class = "form_class" method = "POST" action="/warmup">
+        <div class="service-div">
+		<label for="service">Scalable Service (S):</label>
+        	<select name = "service" id = "service">      
+		  <option value="lambda">Lambda</option>
+		  <option value="ec2">EC2</option>
+		</select>
+        </div>
+        <br />
+        <label for="resources"># of Resources (R)</label>
+        <input type="number" id="resources" name="resources" min="0" max="18" required />
+
+	<input class= "button_1" type="submit" value="Warm Up" />
+	
+    </form>
+	<form class = "form_class" method="POST" action = "/audit">
+		<input class= "button_1" type="submit" value="Audit" />
+	</form>
+    
+</body>
+
+</html>

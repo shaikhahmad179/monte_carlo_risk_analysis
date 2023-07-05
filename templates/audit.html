@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<header>
+    <div class="banner">
+        <div style="text-align: center;">
+            <h1> Audit Logs</h1>
+        </div>
+	    <h4>Total Operation Cost: ${{ total_operation_cost }}</h4>
+	    <p><i>The total operation cost is the sum of all operation costs</i></p>
+    	    <p><i>The operation cost is the sum of execution + warm up time</i></p>
+        <div style="display:flex; justify-content: space-between;">
+		<div>
+		    <p> <b> EC2 </b></p>
+		    <p> Cost Formula: 3.22e-6 * seconds * number of resources
+		    <p>Warm up time = Creating instances (until it's running) + Data Loading Time (yfinance)</p>
+		    <p> + AWS RDS Connection</p>
+		    <p>Execution Time = Time to calculate risk.</p>
+		</div>
+		<div>
+		    <p> <b> Lambda </b></p>
+		    <p> Cost Formula: 2.1e-6 * seconds * number of resources
+		    <p>Warm up time = Calculating for Dummy Data + Data Loading Time (yfinance) </p>
+    		    <p> + AWS RDS Connection</p>
+		    <p>Execution Time = Time to calculate risk</p>
+		</div>
+        </div>
+    </div>
+</header>
+
+<body>
+    <div>   
+        <table class="styled-table">
+        	<thead>
+			<tr>
+		            <th colspan = "2">Timestamp</th>
+		            <th colspan = "2">Service (S)</th>
+		            <th colspan = "2">Resources (R)</th>
+		            <th colspan = "2">Minhistory (H)</th>
+		            <th colspan = "2">Shots (D)</th>
+    		            <th colspan = "2">Days after to check Profit/Loss (P)</th>
+    		            <th colspan = "2">Transaction Type (T)</th>
+    		            <th colspan = "2"> Execution Time (seconds)</th>
+    		            <th colspan = "2"> Warm up Time (seconds) </th>
+		            <th colspan = "2">Operation Cost ($)</th>
+		            <th colspan = "2">Total Profit</th>
+		            <th colspan = "2">Total Loss</th>
+    		            <th colspan = "2">Var95 Avg</th>
+    		            <th colspan = "2">Var99 Avg</th>
+	    		</tr>
+ 		</thead>
+            <tbody>
+    		{% for item in data %}
+		<tr>
+			<td> {{ item[0] }} <td>
+			<td> {{ item[1] }} <td>
+			<td> {{ item[2] }} <td>
+			<td> {{ item[3] }} <td>
+			<td> {{ item[4] }} <td>
+			<td> {{ item[5] }} <td>
+			<td> {{ item[6] }} <td>
+			<td> {{ item[7] }} <td>
+			<td> {{ item[8] }} <td>
+			<td> {{ item[9] }} <td>
+			<td> {{ item[10] }} <td>
+			<td> {{ item[11] }} <td>
+			<td> {{ item[12] }} <td>
+			<td> {{ item[13] }} <td>
+		</tr>
+		{% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+		
